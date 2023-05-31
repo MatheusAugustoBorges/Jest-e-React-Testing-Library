@@ -1,7 +1,4 @@
 import { screen } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
-import userEvent from '@testing-library/user-event';
-import App from '../App';
 import renderWithRouter from '../renderWithRouter';
 import { About } from '../pages';
 
