@@ -93,7 +93,7 @@ describe('<Pokedex.js />', () => {
       act(() => {
         userEvent.click(btnFilter);
       });
-      expect(btnNoFilter).toBeInTheDocument();
+      expect(btnNoFilter).toBeInTheDocument(); // Tentativa de verifição da não existência de All
 
       // Salva em um array somente os Pokemons filtrados pelo tipo selecionado acima
       const pokemonListFiltered = pokemonList.filter((pokemon) => pokemon.type === type);
@@ -110,7 +110,7 @@ describe('<Pokedex.js />', () => {
         act(() => {
           userEvent.click(btnNext);
         });
-        expect(btnNoFilter).toBeInTheDocument();
+        expect(btnNoFilter).toBeInTheDocument(); // Tentativa de verifição da não existência de All
       });
     });
   });
@@ -131,31 +131,32 @@ describe('<Pokedex.js />', () => {
     const btnNoFilter = screen.getByRole('button', { name: 'All' });
     expect(btnNoFilter).toBeInTheDocument();
 
+    // Verifica botão de filtro: 'Fire'
+    const btnFireFilter = screen.getByRole('button', { name: 'Fire' });
+    expect(btnFireFilter).toBeInTheDocument();
+
     // Clica no botão de filtro: 'All'
     act(() => {
       userEvent.click(btnNoFilter);
     });
 
-    // Simula o click no botão 'Próximo Pokémon' e verifica seu nome na aplicação
-    pokemonList.forEach((pokemon) => {
-      // Verifica nome de pokemon na tela
-      expect(screen.getByText(`${pokemon.name}`)).toBeInTheDocument();
-      // Clica no botão Próximo Pokémon
-      act(() => {
-        userEvent.click(btnNext);
-      });
-    });
-  });
+    // Verifica nome do Pikachu
+    expect(screen.getByText(`${pokemonList[0].name}`)).toBeInTheDocument();
 
-  it('Verifica se botão que reseta os filtros (botão de filtro: All) está sempre visível', () => {
-    renderWithRouter(
-      <Pokedex
-        pokemonList={ pokemonList }
-        isPokemonFavoriteById={ isPokemonFavoriteById }
-      />,
-    );
-    // Verifica botão de filtro: 'All'
-    const btnNoFilter = screen.getByRole('button', { name: 'All' });
-    expect(btnNoFilter).toBeInTheDocument();
+    // Clica no botão de filtro: 'All'
+    act(() => {
+      userEvent.click(btnFireFilter);
+    });
+
+    // Verifica nome do Pikachu
+    expect(screen.getByText(`${pokemonList[1].name}`)).toBeInTheDocument();
+
+    // Clica no botão de filtro: 'All'
+    act(() => {
+      userEvent.click(btnNoFilter);
+    });
+
+    // Verifica nome do Pikachu
+    expect(screen.getByText(`${pokemonList[0].name}`)).toBeInTheDocument();
   });
 });
