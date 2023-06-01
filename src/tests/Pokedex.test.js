@@ -83,6 +83,9 @@ describe('<Pokedex.js />', () => {
       />,
     );
 
+    // Verifica botão de filtro: 'All'
+    const btnNoFilter = screen.getByRole('button', { name: 'All' });
+
     // Simula o click no botão que seleciona um tipo de Pokemon
     pokemonTypes.forEach((type) => {
       const btnFilter = screen.getByRole('button', { name: `${type}` });
@@ -90,6 +93,7 @@ describe('<Pokedex.js />', () => {
       act(() => {
         userEvent.click(btnFilter);
       });
+      expect(btnNoFilter).toBeInTheDocument();
 
       // Salva em um array somente os Pokemons filtrados pelo tipo selecionado acima
       const pokemonListFiltered = pokemonList.filter((pokemon) => pokemon.type === type);
@@ -106,6 +110,7 @@ describe('<Pokedex.js />', () => {
         act(() => {
           userEvent.click(btnNext);
         });
+        expect(btnNoFilter).toBeInTheDocument();
       });
     });
   });
