@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
-import userEvent from '@testing-library/user-event';
+// import { act } from 'react-dom/test-utils';
+// import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import { PokemonDetails } from '../pages';
 
@@ -43,7 +43,7 @@ const isPokemonFavoriteById = {
 
 describe('<PokemonDetails.js />', () => {
   it('Verfica se as informações detalhadas do Pokémon selecionado são mostradas na tela', () => {
-    const { history } = renderWithRouter(<PokemonDetails
+    renderWithRouter(<PokemonDetails
       pokemonList={ pokemonList }
       isPokemonFavoriteById={ isPokemonFavoriteById }
     />);
